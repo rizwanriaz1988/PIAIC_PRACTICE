@@ -1,5 +1,5 @@
 export default function Home() {
   return (
-        <div>Hello World by Rizwan</div>
+        <div>Hello World by Rizwan Riaz</div>
   );
 }

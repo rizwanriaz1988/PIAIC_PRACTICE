@@ -109,6 +109,6 @@ export default function Home() {
     //     </a>
     //   </div>
     // </main>
-    <div>Home Page</div>
+    <div className='bg-black w-screen h-screen text-white'>Home Page</div>
   )
 }

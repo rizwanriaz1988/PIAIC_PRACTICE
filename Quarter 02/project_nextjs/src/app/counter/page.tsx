@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
+
 export default function counter() {
   let [counterState, setCounterState] = useState(0);
 
@@ -18,7 +19,7 @@ export default function counter() {
   }
 
   return (
-    <div className="flex items-center justify-center bg-black h-screen w-screen">
+    <div className="flex py-16 justify-center bg-black h-screen w-screen">
       <div className="flex flex-col bg-gray-700 items-center justify-around w-2/6 h-80">
         <div className="text-white  text-4xl ">
           <h1>COUNTER</h1>
@@ -43,3 +44,4 @@ export default function counter() {
     </div>
   );
 }
+

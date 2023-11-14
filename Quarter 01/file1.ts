@@ -19,9 +19,9 @@ async function file1Function() {
 export let prompt1Answers = await inquirer.prompt(prompt1)
 // inquirer.prompt([prompt2])
 console.log(prompt1Answers.name1); */
-const fruits = ["Banana", "Orange", "Apple", "Mango"];
+// const fruits = ["Banana", "Orange", "Apple", "Mango"];
 
-fruits.splice(2, 0, "Lemon", "Kiwi"); 
-// adds elements to an array at 2nd index
-// deleted 0 elements
-console.log("🚀 ~ file: file1.ts:23 ~ fruits:", fruits)
+// fruits.splice(2, 0, "Lemon", "Kiwi"); 
+// // adds elements to an array at 2nd index
+// // deleted 0 elements
+// console.log("🚀 ~ file: file1.ts:23 ~ fruits:", fruits)

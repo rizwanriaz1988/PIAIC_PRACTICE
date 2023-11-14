@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "aliexpress-product-scraper": "^1.0.6",
     "date": "^2.0.3",
     "date-fns": "^2.30.0",
     "inquirer": "^9.2.11",

@@ -1,4 +1,12 @@
-a : int = 9
-b : int = 3
+from typing import Any
 
-print(a%b)
+
+names : list[Any] = ["Rizwan","Riaz",23,True]
+
+print(names[2])
+print(names[-1])
+print(names[-2])
+print(len(names))
+
+
+a:str = "lfenlns"

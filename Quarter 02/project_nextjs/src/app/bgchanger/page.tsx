@@ -7,7 +7,7 @@ import { useState } from "react"
 function BgChanger() {
 
     
-    const [color,setColor] = useState("olive")
+    const [color,setColor] = useState("black")
     
     return ( 
         <div className="flex flex-col items-center justify-end h-screen w-full bg-slate-800" style={{backgroundColor: color}}>

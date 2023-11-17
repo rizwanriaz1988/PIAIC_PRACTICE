@@ -54,6 +54,20 @@ export default function RootLayout({
               {" "}
               Background Changer{" "}
             </Link>
+            <Link
+              href="/timer"
+              className="px-5 py-2.5 hover:text-green-500 text-white"
+            >
+              {" "}
+              Timer{" "}
+            </Link>
+            <Link
+              href="/passgenerator"
+              className="px-5 py-2.5 hover:text-green-500 text-white"
+            >
+              {" "}
+              Password Generator{" "}
+            </Link>
           </div>
           
         </div>

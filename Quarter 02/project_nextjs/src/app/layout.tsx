@@ -30,7 +30,7 @@ export default function RootLayout({
       <head>
         <title>My Projects</title>
       </head>
-      <body className={inter.className}>
+      <body className={inter.className} style={{backgroundColor: "black"}}>
         <div>
           <div className="flex bg-slate-900 my-0.5 justify-start ">
             <Link
@@ -40,6 +40,7 @@ export default function RootLayout({
               {" "}
               Home{" "}
             </Link>
+            
             <Link
               href="/counter"
               className="px-5 py-2.5 hover:text-green-500 text-white"
@@ -67,6 +68,13 @@ export default function RootLayout({
             >
               {" "}
               Password Generator{" "}
+            </Link>
+            <Link
+              href="/todo"
+              className="px-5 py-2.5 hover:text-green-500 text-white"
+            >
+              {" "}
+              To Do List{" "}
             </Link>
           </div>
           

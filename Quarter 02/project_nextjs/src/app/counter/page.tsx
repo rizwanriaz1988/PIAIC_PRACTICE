@@ -21,7 +21,7 @@ export default function counter() {
   return (
     <div className="flex py-16 justify-center bg-black h-screen w-screen">
       <div className="flex flex-col bg-gray-700 items-center justify-around w-2/6 h-80">
-        <div className="text-white  text-4xl ">
+        <div className="text-white  text-4xl flex  ">
           <h1>COUNTER</h1>
         </div>
         <div className="text-white flex items-center flex-col">
@@ -29,7 +29,7 @@ export default function counter() {
           <h1 className="text-6xl text-amber-400">{counterState}</h1>
         </div>
 
-        <div className="flex gap-4 py-5 ">
+        <div className="flex flex-wrap gap-4 py-5 ">
           <Button variant="secondary" onClick={counterSubtract}>
             Decrease
           </Button>

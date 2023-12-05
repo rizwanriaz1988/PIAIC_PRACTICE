@@ -3,45 +3,22 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import TodoList from "./components/status";
 import { useState } from "react";
+import Newtask from "./components/newtask";
 // import editTask from "./components/editTask";
 
 
-interface todolist_type {
-  editingData: object;
-  btnClicked:boolean
-}
-export default function Todo(props:todolist_type) {
 
-  console.log(props.btnClicked);
-  console.log(props.editingData);
+
+export default function Todo() {
+
 
   const [todoList, setTodoList] = useState("pending");
   const [divVisible, setDivVisible] = useState(false);
-  const [taskTitle, setTaskTitle] = useState("");
-  const [taskDescription, setTaskDescription] = useState("");
-  const [editbutton, setEditbutton] = useState(true);
-  async function addTask() {
-    try {
-      const api_url = `http://localhost:3001/todos/`;
-      await fetch(api_url, {
-        method: 'POST', // or 'PUT'
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ title: taskTitle,
-          description: taskDescription,
-          status: "pending",}),
-          // After adding the task, you might want to update the state or perform any other necessary actions.
-          // For example, clearing the input fields and hiding the new task section.
-          
-      });
-          setTaskTitle("");
-          setTaskDescription("");
-          setDivVisible(false);
-    } catch (error) {
-      console.error('Error updating todo status:', error);
-    }
-  }
+  // const [newTask, setNewTask] = useState(false);
+  const [rerender, setRerender] = useState(false);
+
+
+  
   
   return (
     <div className="flex flex-col items-center justify-center py-16">
@@ -65,7 +42,7 @@ export default function Todo(props:todolist_type) {
                 <Button variant={"secondary"} onClick={() => setDivVisible(true)} className=" my-1 bg-green-700 hover:bg-green-700 text-black hover:text-white"> Add Task</Button>
               </div>
           </div>
-          {!divVisible &&  <div>
+          {(!divVisible || rerender) &&  <div>
             <TabsContent value="pending">
                 {/*==========================================================Pending==*/}
               
@@ -77,26 +54,13 @@ export default function Todo(props:todolist_type) {
             </TabsContent>
           </div>
           }
-          {(divVisible ) && 
-            <div className=" flex flex-col my-4">
-              <div className="flex justify-center">
-              <input type="text" onChange={(e) => setTaskTitle(e.target.value)} className=" text-white w-11/12 py-2 px-2 border "  style={{ backgroundColor: '#0f172a' }} placeholder="Enter Task Title" />
-              </div>
-              <div className="flex justify-center my-2">
-              <textarea onChange={(e) => setTaskDescription(e.target.value)} className=" text-white w-11/12 py-2 px-2 border " rows={5} style={{ backgroundColor: '#0f172a' }} placeholder="Enter Task Description" />
-              </div>
-              <div className="flex justify-center my-2">
-              <Button variant={"secondary"} onClick={addTask} className=" my-1 bg-green-700 hover:bg-green-700 text-black hover:text-white px-8"> Save</Button>            
-              </div>
-             {/* <p>New Task</p>    */}
-            </div>
+          {(divVisible  ) && 
+            // <Newtask newTaskRender = {()=>setNewTask(true)}/>
+            <Newtask />
 
           }
           </Tabs>
           </div>
-          
-          
-
           {/*============================== End =============================*/}
           {/*====================== Main Div for working ====================*/}
         </div>

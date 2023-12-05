@@ -6,25 +6,30 @@ import { RiDeleteBinLine  } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
 import { title } from 'process';
 import Todo from '../page';
+import Newtask from './newtask';
 
-interface Todo {
+interface Todo  {
   id: number;
   title: string;
   description: string;
-  completed: boolean;
+  status: boolean;
 }
 
 interface todolist_type {
   todoList: string;
+ 
 }
-let data ;
+let data:any ;
 const TodoList = (props:todolist_type) => {
 
-  console.log(props.todoList);
+  // console.log(props.todoList);
   const [todos, setTodos] = useState<Todo[]>([]);
   const [btnState, setbtnState] = useState<boolean>(false);
-  const [editData, seteditData] = useState<object>({});
-  
+  const [btnId, setbtnId] = useState<number>();
+  const [editData, seteditData] = useState<Todo>({ title: "", description: "", status:false,id:0 })
+  const [formVisible, setFormVisible] = useState<boolean>(false);
+  const [renderAfter, setranderAfter] = useState<boolean>(false);
+
 
     useEffect(() => {
       const fetchData = async () => {
@@ -34,6 +39,7 @@ const TodoList = (props:todolist_type) => {
           data = await response.json();
           // console.log(data);
           setTodos(data);
+          setranderAfter(true)
         } catch (error) {
           console.error('Error fetching todos:', error);
         }
@@ -47,11 +53,11 @@ const TodoList = (props:todolist_type) => {
 
     const updatedTodos = todos.map((todo) =>
     // todo.id === todoId ? { ...todo, completed: markAsComplete } : todo
-      todo.id === todoId ? { ...todo, completed: markAsComplete } : todo
+      todo.id === todoId ? { ...todo, status: markAsComplete } : todo
     );
 
     setTodos(updatedTodos);
-
+    setranderAfter(true)
     try {
       const api_url = `http://localhost:3001/todos/${todoId}`;
       await fetch(api_url, {
@@ -59,7 +65,7 @@ const TodoList = (props:todolist_type) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ completed: markAsComplete }),
+        body: JSON.stringify({ status: markAsComplete }),
       });
     } catch (error) {
       console.error('Error updating todo status:', error);
@@ -70,7 +76,7 @@ const TodoList = (props:todolist_type) => {
 
     const updatedTodos = todos.filter((todo) => todo.id !== todoId);
     setTodos(updatedTodos);
-
+    setranderAfter(true)
     try {
       const api_url = `http://localhost:3001/todos/${todoId}`;
       await fetch(api_url, {
@@ -84,7 +90,7 @@ const TodoList = (props:todolist_type) => {
     }
 
   }
-   const editTask = async (todoId: number) => {
+  const editTask = async (todoId: number) => {
     let forEditing: any ;
 
     try {
@@ -97,24 +103,40 @@ const TodoList = (props:todolist_type) => {
       console.error('Error updating todo status:', error);
     }
     // return forEditing
+    console.log("forEditing:", forEditing);
     setbtnState(true)
     seteditData(forEditing)
+    setbtnId(todoId)
+    setFormVisible(true)
+    setranderAfter(true)
+
+
+    
   }
-  
+  const handleTaskChange = (updatedTodos:any) => {
+    // Update the todos in the parent component
+    setTodos(updatedTodos);
+  };
   return (
     <div>
       
-      <div>
-      {btnState && <Todo editingData={editData} btnClicked={btnState} />}
+    
+      {renderAfter && <div>
         {Array.isArray(todos) && todos.length > 0 && props.todoList === 'pending' ? (
           todos.map((todo) => (
-            !todo.completed && (
+            !todo.status && (
               <div key={todo.id} className='py-2'>
+                {/* ======================================show of edit inline */}
+              {(btnState && btnId === todo.id && formVisible) ? (
+                  <Newtask onTaskChange={handleTaskChange} btnState={btnState} editData={editData} onCancel={() => {setFormVisible(false);setranderAfter(true);setTodos(data);}}   editTask={editTask}/>
+                ):          
+              
               <div className="bg-slate-800 "> 
               <div className='px-2'>
               <h3>{todo.title}</h3>
               <p>{todo.description}</p>
               </div>
+              
               <div className='flex justify-between items-end'>
                 <div className='flex items-center ml-2  py-1' >
               <button onClick={() => deleteTask(todo.id)}>
@@ -127,13 +149,14 @@ const TodoList = (props:todolist_type) => {
               <Button variant='default' onClick={() => todostatus(todo.id,true)} className='bg-green-700 hover:bg-green-700  text-black hover:text-white rounded-none ' >Mark As Complete</Button>
               </div>
               </div>
+        }
             </div>
             )
             ))
         ) :((Array.isArray(todos) && todos.length > 0 && props.todoList === 'completed')?
           (
             todos.map((todo) => (
-              todo.completed && (
+              todo.status && (
                 <div key={todo.id} className='py-2'>
                 <div className="bg-slate-800 "> 
                 <div className='px-2'>
@@ -153,6 +176,7 @@ const TodoList = (props:todolist_type) => {
         ) 
         }
       </div>
+  }
     </div>
   );
 };

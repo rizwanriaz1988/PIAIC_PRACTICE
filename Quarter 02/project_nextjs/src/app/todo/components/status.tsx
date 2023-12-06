@@ -17,6 +17,7 @@ interface Todo  {
 
 interface todolist_type {
   todoList: string;
+  
  
 }
 let data:any ;
@@ -29,24 +30,36 @@ const TodoList = (props:todolist_type) => {
   const [editData, seteditData] = useState<Todo>({ title: "", description: "", status:false,id:0 })
   const [formVisible, setFormVisible] = useState<boolean>(false);
   const [renderAfter, setranderAfter] = useState<boolean>(false);
+  const [shouldRerender, setShouldRerender] = useState(false);
+  const [btnSave, setBtnSave] = useState(true);
 
+
+
+  const fetchData = async () => {
+    const api_url = "http://localhost:3001/todos" 
+    try {
+      const response = await fetch(api_url); // Fetch data from the API route
+      data = await response.json();
+      // console.log(data);
+      setTodos(data);
+      setranderAfter(true)
+    } catch (error) {
+      console.error('Error fetching todos:', error);
+    }
+  };
 
     useEffect(() => {
-      const fetchData = async () => {
-        const api_url = "http://localhost:3001/todos" 
-        try {
-          const response = await fetch(api_url); // Fetch data from the API route
-          data = await response.json();
-          // console.log(data);
-          setTodos(data);
-          setranderAfter(true)
-        } catch (error) {
-          console.error('Error fetching todos:', error);
-        }
-      };
+
+      if (btnSave){
+
+        fetchData();
+        setBtnSave(false)
+      }
+      
   
-    fetchData();
-  }, []);
+  }, [btnSave]);
+
+  
   
   const  todostatus = async (todoId: number, markAsComplete: boolean) => {
 
@@ -91,6 +104,9 @@ const TodoList = (props:todolist_type) => {
 
   }
   const editTask = async (todoId: number) => {
+    setShouldRerender(true);
+    
+    // setranderAfter((prev) => !prev);
     let forEditing: any ;
 
     try {
@@ -113,22 +129,19 @@ const TodoList = (props:todolist_type) => {
 
     
   }
-  const handleTaskChange = (updatedTodos:any) => {
-    // Update the todos in the parent component
-    setTodos(updatedTodos);
-  };
+ 
   return (
     <div>
       
     
-      {renderAfter && <div>
+      <div>
         {Array.isArray(todos) && todos.length > 0 && props.todoList === 'pending' ? (
           todos.map((todo) => (
             !todo.status && (
               <div key={todo.id} className='py-2'>
                 {/* ======================================show of edit inline */}
               {(btnState && btnId === todo.id && formVisible) ? (
-                  <Newtask onTaskChange={handleTaskChange} btnState={btnState} editData={editData} onCancel={() => {setFormVisible(false);setranderAfter(true);setTodos(data);}}   editTask={editTask}/>
+                  <Newtask btnS = {()=>setBtnSave(true)} btnState={btnState} editData={editData} onCancel={() => {setFormVisible(false);}} />
                 ):          
               
               <div className="bg-slate-800 "> 
@@ -176,7 +189,7 @@ const TodoList = (props:todolist_type) => {
         ) 
         }
       </div>
-  }
+  
     </div>
   );
 };

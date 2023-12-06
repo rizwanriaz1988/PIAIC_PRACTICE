@@ -15,21 +15,24 @@ interface todolist_type {
     editData: Todo;
     btnState:boolean;
     onCancel:any;
-    editTask:any;
-    onTaskChange:any
-    // onrender:any
+    // editTask:any;
+    btnS:any;
+    main:any
+    // rendercmd: () => void
+    
   }
-export default function Newtask(props:todolist_type ){
+export default function Newtask(props?:any){
     console.log(props.btnState);
     const [taskTitle, setTaskTitle] = useState("");
     const [taskDescription, setTaskDescription] = useState("");
     const [closediv, setClosediv] = useState(false);
+    
 
     useEffect(() => {
         console.log("props.editData:", props.editData);
         setTaskTitle(props.btnState ? props.editData.title : "");
         setTaskDescription(props.btnState ? props.editData.description : "");
-      }, [props.btnState,props.editData]);
+      }, [props.btnState,props.editData,]);
 
       console.log("Newtask rendered");
 
@@ -50,13 +53,14 @@ if (props.btnState){
         }),
         
     });
-      {props.onCancel()}
+    {props.btnS()}
+    {props.onCancel()}
+    
     } catch (error) {
       console.error('Error updating todo status:', error);
     }
-    setClosediv(false)
     
-}else{
+}else  {
   try {
     const api_url = `http://localhost:3001/todos/`;
     await fetch(api_url, {
@@ -72,7 +76,11 @@ if (props.btnState){
     });
         setTaskTitle("");
         setTaskDescription("");
-      
+
+        
+        setClosediv(true)
+        {props.main()}
+        // ====================================================
   } catch (error) {
     console.error('Error updating todo status:', error);
   }
@@ -81,27 +89,29 @@ if (props.btnState){
         
       }
     return(
-      
-      
-        <div className=" flex flex-col my-4">
-        <div className="flex justify-center">
-        <input type="text" onChange={(e) => setTaskTitle(e.target.value)} value = {taskTitle} className=" text-white w-11/12 py-2 px-2 border "  style={{ backgroundColor: '#0f172a' }} placeholder="Enter Task Title" />
-        </div>
-        <div className="flex justify-center my-2">
-        <textarea onChange={(e) => setTaskDescription(e.target.value)} value = {taskDescription} className=" text-white w-11/12 py-2 px-2 border " rows={5} style={{ backgroundColor: '#0f172a' }} placeholder="Enter Task Description" />
-        </div>
-        <div className="flex justify-center my-2">
-        <Button variant={"secondary"} onClick={addTask} className=" my-1 bg-green-700 hover:bg-green-700 text-black hover:text-white px-8"> Save</Button>            
-        {/* <Button
-          variant={"secondary"}
-          onClick={props.onCancel} // Call the onCancel callback
-          className="my-1 ml-2 bg-red-700 hover:bg-red-700 text-black hover:text-white px-8"
-        >
-          Cancel
-        </Button> */}
-        </div>
-      </div>
+         
+        // (closediv && 
+          <>
+          <div className=" flex flex-col my-4">
+            <div className="flex justify-center">
+            <input type="text" onChange={(e) => setTaskTitle(e.target.value)} value = {taskTitle} className=" text-white w-11/12 py-2 px-2 border "  style={{ backgroundColor: '#0f172a' }} placeholder="Enter Task Title" />
+            </div>
+            <div className="flex justify-center my-2">
+            <textarea onChange={(e) => setTaskDescription(e.target.value)} value = {taskDescription} className=" text-white w-11/12 py-2 px-2 border " rows={5} style={{ backgroundColor: '#0f172a' }} placeholder="Enter Task Description" />
+            </div>
+            <div className="flex justify-center my-2">
+            <Button variant={"secondary"} onClick={addTask} className=" my-1 bg-green-700 hover:bg-green-700 text-black hover:text-white px-8"> Save</Button>            
+            {/* <Button
+              variant={"secondary"}
+              onClick={props.onCancel} // Call the onCancel callback
+              className="my-1 ml-2 bg-red-700 hover:bg-red-700 text-black hover:text-white px-8"
+            >
+              Cancel
+            </Button> */}
+            </div>
+          </div>
+         </>
+        // )
 
-      
     )
 }

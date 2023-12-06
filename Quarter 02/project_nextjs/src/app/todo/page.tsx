@@ -15,7 +15,8 @@ export default function Todo() {
   const [todoList, setTodoList] = useState("pending");
   const [divVisible, setDivVisible] = useState(false);
   // const [newTask, setNewTask] = useState(false);
-  const [rerender, setRerender] = useState(false);
+  const [rerender, setRerender] = useState(true);
+  const [mainSave, setmainSave] = useState(false);
 
 
   
@@ -39,26 +40,27 @@ export default function Todo() {
                 </TabsList>
               </div>
               <div className="">
-                <Button variant={"secondary"} onClick={() => setDivVisible(true)} className=" my-1 bg-green-700 hover:bg-green-700 text-black hover:text-white"> Add Task</Button>
+                <Button variant={"secondary"} onClick={() => setmainSave(true)} className=" my-1 bg-green-700 hover:bg-green-700 text-black hover:text-white"> Add Task</Button>
               </div>
           </div>
-          {(!divVisible || rerender) &&  <div>
+          {(!mainSave) &&  <div>
             <TabsContent value="pending">
                 {/*==========================================================Pending==*/}
               
-              <TodoList todoList={todoList} />
+              {rerender && <TodoList todoList={todoList} />}
             </TabsContent>
             <TabsContent value="completed">
                 {/*==========================================================Pending==*/}
-                <TodoList todoList={todoList} />
+                {rerender && <TodoList todoList={todoList} />}
             </TabsContent>
           </div>
           }
-          {(divVisible  ) && 
+          {( mainSave ) && 
             // <Newtask newTaskRender = {()=>setNewTask(true)}/>
-            <Newtask />
-
+            <Newtask main={()=>setmainSave(false)}/>
+            // setmainSave(true)
           }
+          
           </Tabs>
           </div>
           {/*============================== End =============================*/}

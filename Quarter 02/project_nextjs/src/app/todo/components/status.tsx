@@ -1,6 +1,6 @@
 'use client';
 import { Button } from '@/components/ui/button';
-import { SetStateAction, useEffect, useState } from 'react';
+import { SetStateAction, useEffect, useRef, useState } from 'react';
 import { Checkbox } from "@/components/ui/checkbox"
 import { RiDeleteBinLine  } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
@@ -23,15 +23,20 @@ interface todolist_type {
 let data:any ;
 const TodoList = (props:todolist_type) => {
 
-  // console.log(props.todoList);
   const [todos, setTodos] = useState<Todo[]>([]);
   const [btnState, setbtnState] = useState<boolean>(false);
   const [btnId, setbtnId] = useState<number>();
   const [editData, seteditData] = useState<Todo>({ title: "", description: "", status:false,id:0 })
   const [formVisible, setFormVisible] = useState<boolean>(false);
-  const [renderAfter, setranderAfter] = useState<boolean>(false);
-  const [shouldRerender, setShouldRerender] = useState(false);
   const [btnSave, setBtnSave] = useState(true);
+  const [isOverflowed, setIsOverflowed] = useState<boolean>(false);
+  
+  const [morebutton, setmorebutton] = useState('see more');
+  const descriptionRef  = useRef<any>(null)
+  const descriptionTextRef  = useRef<any>(null)
+
+  
+  
 
 
 
@@ -42,21 +47,18 @@ const TodoList = (props:todolist_type) => {
       data = await response.json();
       // console.log(data);
       setTodos(data);
-      setranderAfter(true)
+      // setranderAfter(true)
     } catch (error) {
       console.error('Error fetching todos:', error);
     }
   };
-
-    useEffect(() => {
-
-      if (btnSave){
-
-        fetchData();
-        setBtnSave(false)
-      }
-      
   
+    useEffect(() => {
+      if (btnSave){
+        fetchData();
+        console.log("Date is fetched");
+        setBtnSave(false)
+      }        
   }, [btnSave]);
 
   
@@ -70,7 +72,7 @@ const TodoList = (props:todolist_type) => {
     );
 
     setTodos(updatedTodos);
-    setranderAfter(true)
+    // setranderAfter(true)
     try {
       const api_url = `http://localhost:3001/todos/${todoId}`;
       await fetch(api_url, {
@@ -89,7 +91,7 @@ const TodoList = (props:todolist_type) => {
 
     const updatedTodos = todos.filter((todo) => todo.id !== todoId);
     setTodos(updatedTodos);
-    setranderAfter(true)
+    // setranderAfter(true)
     try {
       const api_url = `http://localhost:3001/todos/${todoId}`;
       await fetch(api_url, {
@@ -104,7 +106,7 @@ const TodoList = (props:todolist_type) => {
 
   }
   const editTask = async (todoId: number) => {
-    setShouldRerender(true);
+    // setShouldRerender(true);
     
     // setranderAfter((prev) => !prev);
     let forEditing: any ;
@@ -124,16 +126,42 @@ const TodoList = (props:todolist_type) => {
     seteditData(forEditing)
     setbtnId(todoId)
     setFormVisible(true)
-    setranderAfter(true)
-
-
-    
+    // setranderAfter(true)   
   }
+  
  
+function activeSeemore(morebutton:string){
+  if (morebutton == "see more"){
+    // setIsOverflowed(!isOverflowed)
+    setmorebutton("see less")
+  }else{
+    setmorebutton("see more")
+  }
+}
+
+useEffect(() => {
+  const descriptionElement = descriptionRef.current;
+  
+  if (descriptionElement) {
+    if(descriptionElement.scrollHeight > descriptionElement.clientHeight){
+      setIsOverflowed(true);
+    }else{
+      setIsOverflowed(false);
+    }
+    console.log('scroll',descriptionElement.scrollHeight)
+    console.log('client', descriptionElement.clientHeight)
+  }else{
+    console.log("Element not found");
+  }
+
+}, [todos]);
+
+
+
+
   return (
     <div>
       
-    
       <div>
         {Array.isArray(todos) && todos.length > 0 && props.todoList === 'pending' ? (
           todos.map((todo) => (
@@ -143,11 +171,25 @@ const TodoList = (props:todolist_type) => {
               {(btnState && btnId === todo.id && formVisible) ? (
                   <Newtask btnS = {()=>setBtnSave(true)} btnState={btnState} editData={editData} onCancel={() => {setFormVisible(false);}} />
                 ):          
-              
+              //use effect for showing see more button
               <div className="bg-slate-800 "> 
               <div className='px-2'>
-              <h3>{todo.title}</h3>
-              <p>{todo.description}</p>
+              <h3 className='break-words'>{todo.title}</h3>
+
+              {/* <div > */}
+              {/* <p  ref={descriptionRef} className='c  line-clamp-3  overflow-hidden whitespace-normal overflow-ellipsis'>{todo.description}</p> */}
+              {/* <p  ref={descriptionRef} className={`overflow-hidden isOverflowed whitespace-normal ${isOverflowed ? 'overflow-ellipsis line-clamp-2' : 'line-clamp-none'}`}>{todo.description}</p> */}
+              {/* <p  ref={descriptionRef} className='break-words line-clamp-2'>{todo.description}</p> */}
+              {/* </div> */}
+
+              <p ref={descriptionRef} className={`break-words ${(morebutton == 'see more') ? ' line-clamp-2' : 'line-clamp-none'}`}>{todo.description}</p>
+                        
+              
+              {(isOverflowed) && (<div className='my-2 text-xs  text-blue-800 hover:text-blue-500  flex justify-end'>
+              <button className=' ml-4 ' onClick={()=>activeSeemore(morebutton)}>{morebutton}</button>
+              {/* <button className='ml-4'>{morebutton}</button> */}
+              </div>)}
+
               </div>
               
               <div className='flex justify-between items-end'>
@@ -171,15 +213,35 @@ const TodoList = (props:todolist_type) => {
             todos.map((todo) => (
               todo.status && (
                 <div key={todo.id} className='py-2'>
-                <div className="bg-slate-800 "> 
-                <div className='px-2'>
-                <h3>{todo.title}</h3>
-                <p>{todo.description}</p>
+              {/* ======================================show of edit inline */} 
+
+
+              {(btnState && btnId === todo.id && formVisible) ? (
+                  <Newtask btnS = {()=>setBtnSave(true)} btnState={btnState} editData={editData} onCancel={() => {setFormVisible(false);}} />
+                ):          
+              
+              <div className="bg-slate-800 "> 
+              <div className='px-2'>
+              <h3 >{todo.title}</h3>
+              <p>{todo.description}</p>
+              
+              </div>
+              
+              <div className='flex justify-between items-end'>
+                <div className='flex items-center ml-2  py-1' >
+              <button onClick={() => deleteTask(todo.id)}>
+              <RiDeleteBinLine  className='h-4 w-4  text-red-500 hover:text-red-600'  />
+              </button>
+              <button onClick={() =>editTask(todo.id)}>
+              <FiEdit className='h-4 w-4 mx-2  text-red-500 hover:text-red-600' />
+              </button  >
                 </div>
-                <div className='flex justify-end'>
-                <Button variant='default' onClick={() => todostatus(todo.id,false)} className='bg-red-700 hover:bg-red-700 text-black hover:text-white rounded-none' >Mark As Incomplete</Button>
-                </div>
-                </div>
+              <Button variant='default' onClick={() => todostatus(todo.id,false)} className='bg-red-700 hover:bg-red-700  text-black hover:text-white rounded-none ' >Mark As Inomplete</Button>
+              </div>
+              </div>
+        }
+
+                
               </div>
               )
             ))

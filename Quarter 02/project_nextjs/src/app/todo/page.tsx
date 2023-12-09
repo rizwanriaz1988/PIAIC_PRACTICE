@@ -30,11 +30,11 @@ export default function Todo() {
         <div className="flex justify-center flex-col items-center bg-black my-0.5 rounded-md ">
           {/*====================== Main Div for working ====================*/}
           {/*============================= Start ============================*/}
-          <div className="w-full ">
+          <div className=" w-full ">
           <Tabs defaultValue={todoList} onValueChange={(value:string) => {setTodoList(value); setDivVisible(false)}} className="w-full text-white py-1 px-1 ">
-          <div className="flex justify-between">
+          <div className="flex justify-between flex-wrap">
               <div>
-                <TabsList className="bg-slate-900 text-white" >
+                <TabsList className="bg-slate-900 text-white flex flex-wrap" >
                   <TabsTrigger value="pending" className="bg-slate-900 text-slate-400">Pending</TabsTrigger>
                   <TabsTrigger value="completed" className="bg-slate-900 text-slate-400">Completed</TabsTrigger>
                 </TabsList>

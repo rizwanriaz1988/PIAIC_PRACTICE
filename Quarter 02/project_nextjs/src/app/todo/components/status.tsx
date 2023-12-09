@@ -201,7 +201,7 @@ useEffect(() => {
               <FiEdit className='h-4 w-4 mx-2  text-red-500 hover:text-red-600' />
               </button  >
                 </div>
-              <Button variant='default' onClick={() => todostatus(todo.id,true)} className='bg-green-700 hover:bg-green-700  text-black hover:text-white rounded-none ' >Mark As Complete</Button>
+              <Button variant='default' onClick={() => todostatus(todo.id,true)} className='bg-green-700 hover:bg-green-700  text-black hover:text-white rounded-none ' >Completed</Button>
               </div>
               </div>
         }
@@ -236,7 +236,7 @@ useEffect(() => {
               <FiEdit className='h-4 w-4 mx-2  text-red-500 hover:text-red-600' />
               </button  >
                 </div>
-              <Button variant='default' onClick={() => todostatus(todo.id,false)} className='bg-red-700 hover:bg-red-700  text-black hover:text-white rounded-none ' >Mark As Inomplete</Button>
+              <Button variant='default' onClick={() => todostatus(todo.id,false)} className='bg-red-700 hover:bg-red-700  text-black hover:text-white rounded-none ' >To Do</Button>
               </div>
               </div>
         }

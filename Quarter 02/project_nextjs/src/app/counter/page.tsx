@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 
-export default function counter() {
+export default function Counter() {
   let [counterState, setCounterState] = useState(0);
 
   const counterAdd = () => {

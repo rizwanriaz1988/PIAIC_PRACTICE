@@ -32,12 +32,9 @@ const TodoList = (props:todolist_type) => {
   const [isOverflowed, setIsOverflowed] = useState<boolean>(false);
   
   const [morebutton, setmorebutton] = useState('see more');
-  const descriptionRef  = useRef<any>(null)
-  const descriptionTextRef  = useRef<any>(null)
+  const descriptionRef  = useRef<any>([null])
 
-  
-  
-
+  const [overflowStatus, setOverflowStatus] = useState<{ [key: number]: boolean }>({});
 
 
   const fetchData = async () => {
@@ -140,20 +137,20 @@ function activeSeemore(morebutton:string){
 }
 
 useEffect(() => {
-  const descriptionElement = descriptionRef.current;
-  
+  todos.map((todo) => {
+    const descriptionElement = descriptionRef.current[todo.id];
+    console.log("🚀 ~ file: status.tsx:146 ~ todos.map ~ descriptionElement:", descriptionElement)
   if (descriptionElement) {
-    if(descriptionElement.scrollHeight > descriptionElement.clientHeight){
-      setIsOverflowed(true);
-    }else{
-      setIsOverflowed(false);
-    }
+    const overflowed = descriptionElement.scrollHeight > descriptionElement.clientHeight;
+    setIsOverflowed(overflowed);
+    setOverflowStatus((prevStatus) => ({ ...prevStatus, [todo.id]: overflowed }));
+    console.log("🚀 ~ file: status.tsx:156 ~ todos.map ~ overflowed:", overflowed)
     console.log('scroll',descriptionElement.scrollHeight)
     console.log('client', descriptionElement.clientHeight)
   }else{
     console.log("Element not found");
   }
-
+})
 }, [todos]);
 
 
@@ -182,12 +179,11 @@ useEffect(() => {
               {/* <p  ref={descriptionRef} className='break-words line-clamp-2'>{todo.description}</p> */}
               {/* </div> */}
 
-              <p ref={descriptionRef} className={`break-words ${(morebutton == 'see more') ? ' line-clamp-2' : 'line-clamp-none'}`}>{todo.description}</p>
+              <p ref={el => (descriptionRef.current[todo.id] = el!)} className={`break-words ${(morebutton == 'see more') ? ' line-clamp-2' : 'line-clamp-none'}`}>{todo.description}</p>
                         
               
-              {(isOverflowed) && (<div className='my-2 text-xs  text-blue-800 hover:text-blue-500  flex justify-end'>
+              {(overflowStatus[todo.id]) && (<div className='my-2 text-xs  text-blue-800 hover:text-blue-500  flex justify-end'>
               <button className=' ml-4 ' onClick={()=>activeSeemore(morebutton)}>{morebutton}</button>
-              {/* <button className='ml-4'>{morebutton}</button> */}
               </div>)}
 
               </div>

@@ -40,7 +40,7 @@ export default function Todo() {
                 </TabsList>
               </div>
               <div className="">
-                <Button variant={"secondary"} onClick={() => setmainSave(true)} className=" my-1 bg-green-700 hover:bg-green-700 text-black hover:text-white rounded-full"> + </Button>
+                <Button variant={"secondary"} onClick={() => setmainSave(true)} className=" my-1 bg-green-700 hover:bg-green-700 text-black hover:text-white"> Add Task</Button>
               </div>
           </div>
           {(!mainSave) &&  <div>

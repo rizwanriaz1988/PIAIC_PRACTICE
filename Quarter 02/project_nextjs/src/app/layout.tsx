@@ -32,49 +32,43 @@ export default function RootLayout({
       </head>
       <body className={inter.className} style={{backgroundColor: "black"}}>
         <div>
-          <div className="flex bg-slate-900 my-0.5 justify-start ">
+          <div className="flex-grow py-4 items-center bg-slate-900 my-0.5 justify-start ">
             <Link
               href="/"
               className="px-5 py-2.5 hover:text-green-500 text-white"
             >
-              {" "}
-              Home{" "}
+              Home
             </Link>
             
             <Link
               href="/counter"
               className="px-5 py-2.5 hover:text-green-500 text-white"
             >
-              {" "}
-              Counter{" "}
+              Counter
             </Link>
             <Link
               href="/bgchanger"
               className="px-5 py-2.5 hover:text-green-500 text-white"
             >
-              {" "}
-              Background Changer{" "}
+              Background Changer
             </Link>
             <Link
               href="/timer"
               className="px-5 py-2.5 hover:text-green-500 text-white"
             >
-              {" "}
-              Timer{" "}
+              Timer
             </Link>
             <Link
               href="/passgenerator"
               className="px-5 py-2.5 hover:text-green-500 text-white"
             >
-              {" "}
-              Password Generator{" "}
+              Password Generator
             </Link>
             <Link
               href="/todo"
               className="px-5 py-2.5 hover:text-green-500 text-white"
             >
-              {" "}
-              To Do List{" "}
+              To Do List
             </Link>
           </div>
           

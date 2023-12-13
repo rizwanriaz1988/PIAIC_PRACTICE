@@ -19,26 +19,28 @@ export default function Counter() {
   }
 
   return (
-    <div className="flex py-16 justify-center bg-black h-screen w-screen">
-      <div className="flex flex-col bg-gray-700 items-center justify-around w-2/6 h-80">
-        <div className="text-white  text-4xl flex  ">
-          <h1>COUNTER</h1>
+    <div className="  flex justify-center">
+      <div className="bg-white p-0.5 my-1 md:my-4 rounded-md w-11/12 sm:w-4/12 ">
+        <div className="flex justify-center bg-slate-900 py-1 rounded-md ">
+          <h1 className="text-yellow-400 text-4xl">COUNTER</h1>
         </div>
-        <div className="text-white flex items-center flex-col">
+        <div className="bg-slate-900 my-0.5 rounded-md">
+        <div className="flex justify-center py-5">
           {/* <h1>Counter Value</h1> */}
           <h1 className="text-6xl text-amber-400">{counterState}</h1>
         </div>
 
-        <div className="flex flex-wrap gap-4 py-5 ">
-          <Button variant="secondary" onClick={counterSubtract}>
+        <div className="flex flex-wrap gap-4 py-5 justify-center">
+          <Button variant="secondary" className="w-20 bg-red-500" onClick={counterSubtract}>
             Decrease
           </Button>
           <Button variant="secondary" onClick={reset}>
             Reset
           </Button>
-          <Button variant="secondary" onClick={counterAdd}>
+          <Button variant="secondary" className="w-20 bg-green-500" onClick={counterAdd}>
             Increase
           </Button>
+        </div>
         </div>
       </div>
     </div>

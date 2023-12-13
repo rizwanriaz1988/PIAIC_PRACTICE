@@ -7,6 +7,7 @@ export default function Timer() {
   let [timerState, setTimerState] = useState(0);
   let [runningState, setrunningState] = useState(false);
   let [buttonState, setbuttonState] = useState("Start");
+  const [color,setColor]=useState("green")
 
   let timeoutID: any;
   useEffect(() => {
@@ -22,6 +23,8 @@ export default function Timer() {
   function stop() {
     setrunningState(false);
     clearTimeout(timeoutID);
+    setbuttonState("Start")
+    setColor("green")
   }
   function reset() {
     setrunningState(false);
@@ -30,14 +33,16 @@ export default function Timer() {
   }
 
   return (
-    <div className="flex py-16 justify-center bg-black h-screen mx-auto w-screen">
-      <div className="flex flex-col bg-gray-700 items-center justify-around mx-auto w-2/6 h-80 ">
-        <div className="text-white items-center  mx-auto text-4xl ">
-          <h1>TIMER</h1>
+    <div className="  flex justify-center">
+      <div className="bg-white p-0.5 my-1 md:my-4 rounded-md w-11/12 sm:w-4/12 ">
+        <div className="flex justify-center bg-slate-900 py-1 rounded-md ">
+          <h1 className="text-yellow-400 text-4xl">TIMER</h1>
         </div>
-        <div className="flex items-center mx-auto justify-around flex-col">
+        {/* <div className="flex justify-center flex-col items-center bg-slate-400 my-0.5 rounded-md "> */}
+        <div className="my-0.5 ">
           {/* ========================tabs======================== */}
-          <Tabs defaultValue="account" className="w-[420px] h-[250px] justify-around mx-auto px-2 py-2 bg-black items-center">
+          {/* <Tabs defaultValue="account" className="flex-grow justify-around  px-2 py-2 bg-slate-900 items-center"> */}
+          <Tabs defaultValue="account" className="flex-grow justify-around  px-2 py-2 bg-slate-900 items-center rounded-md">
             <TabsList>
               <TabsTrigger value="account">Version 01</TabsTrigger>
               <TabsTrigger value="password">Version 02</TabsTrigger>
@@ -48,12 +53,12 @@ export default function Timer() {
               </div>
 
               <div className="flex gap-4 justify-center my-2">
-                <Button variant="secondary" onClick={() =>
-                    (setbuttonState("Stop"), start())
+                <Button variant="secondary" className="bg-green-500" onClick={() =>
+                    (setbuttonState("Stop"), start(),setColor("red"))
                      }>
                   Start
                 </Button>
-                <Button variant="secondary" onClick={stop}>
+                <Button variant="secondary" className="bg-red-500" onClick={stop}>
                   Stop
                 </Button>
                 <Button variant="secondary" onClick={reset}>
@@ -69,10 +74,11 @@ export default function Timer() {
               <div className="flex gap-4 justify-center my-4">
                 <Button
                   variant="secondary"
+                  className={`bg-${color}-500`}
                   onClick={() =>
                     buttonState === "Start"
-                      ? (setbuttonState("Stop"), start())
-                      : (setbuttonState("Start"), stop())
+                      ? (setbuttonState("Stop"), start(),setColor("red"))
+                      : (setbuttonState("Start"), stop(),setColor("green"))
                   }
                 >
                   {buttonState}
@@ -80,7 +86,7 @@ export default function Timer() {
 
                 <Button
                   variant="secondary"
-                  onClick={() => (reset(), setbuttonState("Start"))}
+                  onClick={() => (reset(), setbuttonState("Start"),setColor("green"))}
                 >
                   Reset
                 </Button>

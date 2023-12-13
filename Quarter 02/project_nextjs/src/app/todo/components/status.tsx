@@ -2,7 +2,9 @@
 import { Button } from "@/components/ui/button";
 import { useEffect, useRef, useState } from "react";
 import { RiDeleteBinLine } from "react-icons/ri";
+import { MdDoneOutline } from "react-icons/md"
 import { FiEdit } from "react-icons/fi";
+import { ImUndo2 } from "react-icons/im"
 import Todo from "../page";
 import Newtask from "./newtask";
 
@@ -171,47 +173,50 @@ const TodoList = (props: todolist_type) => {
                     />
                   ) : (
                     //use effect for showing see more button
-                    <div className="bg-slate-800 ">
-                      <div className="px-2">
-                        <h3 className="break-words">{todo.title}</h3>
+                    // =======================================================================================
+                    <div className="bg-slate-800 rounded-lg mx-2">
+                      <div className="p-1 ">
+                        <h3 className="break-words bg-slate-950 rounded-md px-5 py-1 text-2xl border-slate-500 border">{todo.title}</h3>
 
                         <p
                           ref={(el) => (descriptionRef.current[todo.id] = el!)}
                           className={`break-words ${
                             moreButtons[todo.id] ? "" : "line-clamp-2"
-                          }`}
+                          }  rounded-md px-5 my-1`}
                         >
                           {todo.description}
                         </p>
 
                         {overflowStatus[todo.id] && (
-                          <div className="my-2 text-xs  text-blue-800 hover:text-blue-500  flex justify-end">
+                          <div className=" flex justify-end">
                             <button
-                              className="ml-4"
+                              className="text-xs mx-2  text-blue-400 hover:text-blue-500 "
                               onClick={() => activeSeemore(todo.id)}
                             >
                               {moreButtons[todo.id] ? "see less" : "see more"}
                             </button>
                           </div>
                         )}
+                        
                       </div>
 
-                      <div className="flex justify-between items-end">
-                        <div className="flex items-center ml-2  py-1">
-                          <button onClick={() => deleteTask(todo.id)}>
-                            <RiDeleteBinLine className="h-4 w-4  text-red-500 hover:text-red-600" />
+                      <div className="flex  justify-end mx-2">
+                        <div className="flex items-center ml-5  py-1">
+                          <button onClick={() => deleteTask(todo.id)} title="Click to delete">
+                            <RiDeleteBinLine className="h-5 w-5  text-red-500 hover:text-red-600 "   />
                           </button>
-                          <button onClick={() => editTask(todo.id)}>
-                            <FiEdit className="h-4 w-4 mx-2  text-red-500 hover:text-red-600" />
+                          <button onClick={() => editTask(todo.id)} title="Click to edit">
+                            <FiEdit className="h-5 w-5 mx-2  text-red-500 hover:text-red-600" />
                           </button>
                         </div>
-                        <Button
-                          variant="default"
+                        <button
+                          
                           onClick={() => todostatus(todo.id, true)}
-                          className="bg-green-700 hover:bg-green-700  text-black hover:text-white rounded-none "
-                        >
-                          Completed
-                        </Button>
+                          // className="bg-green-700 hover:bg-green-700 m-1 text-black hover:text-white rounded-md"
+                          title="Click to complete">
+                          {/* Completed */}
+                          <MdDoneOutline className="h-5 w-5 text-green-500 hover:text-green-700"/>
+                        </button>
                       </div>
                     </div>
                   )}
@@ -237,28 +242,46 @@ const TodoList = (props: todolist_type) => {
                       }}
                     />
                   ) : (
-                    <div className="bg-slate-800 ">
-                      <div className="px-2">
-                        <h3>{todo.title}</h3>
-                        <p>{todo.description}</p>
+                    <div className="bg-slate-800 rounded-lg mx-2">
+                      <div className="p-1 ">
+                        <h3 className="break-words bg-slate-950 rounded-md px-5 py-1 text-2xl border-slate-500 border">{todo.title}</h3>
+                        <p
+                          ref={(el) => (descriptionRef.current[todo.id] = el!)}
+                          className={`break-words ${
+                            moreButtons[todo.id] ? "" : "line-clamp-2"
+                          }  rounded-md px-5 my-1`}
+                        >
+                          {todo.description}
+                        </p>
+                        {overflowStatus[todo.id] && (
+                          <div className=" flex justify-end">
+                            <button
+                              className="text-xs mx-2  text-blue-400 hover:text-blue-500 "
+                              onClick={() => activeSeemore(todo.id)}
+                            >
+                              {moreButtons[todo.id] ? "see less" : "see more"}
+                            </button>
+                          </div>
+                        )}
                       </div>
 
-                      <div className="flex justify-between items-end">
-                        <div className="flex items-center ml-2  py-1">
-                          <button onClick={() => deleteTask(todo.id)}>
-                            <RiDeleteBinLine className="h-4 w-4  text-red-500 hover:text-red-600" />
+                      <div className="flex items-center justify-end gap-2 mx-2 ">
+                        <div className="flex items-center gap-2 py-1">
+                          <button onClick={() => deleteTask(todo.id)} title="Click to delete">
+                            <RiDeleteBinLine className="h-5 w-5  text-red-500 hover:text-red-600" />
                           </button>
-                          <button onClick={() => editTask(todo.id)}>
-                            <FiEdit className="h-4 w-4 mx-2  text-red-500 hover:text-red-600" />
+                          <button onClick={() => editTask(todo.id)} title="Click to edit">
+                            <FiEdit className="h-5 w-5   text-red-500 hover:text-red-600" />
                           </button>
                         </div>
-                        <Button
-                          variant="default"
-                          onClick={() => todostatus(todo.id, false)}
-                          className="bg-red-700 hover:bg-red-700  text-black hover:text-white rounded-none "
+                        <button
+                          
+                          onClick={() => todostatus(todo.id, false)} title="Click to undo"
+                          // className="bg-red-700 hover:bg-red-700  text-black hover:text-white rounded-none "
                         >
-                          To Do
-                        </Button>
+                          <ImUndo2 className="h-5 w-5   text-red-500 hover:text-red-600"/>
+                          {/* To Do */}
+                        </button>
                       </div>
                     </div>
                   )}

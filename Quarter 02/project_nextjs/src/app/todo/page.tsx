@@ -35,14 +35,14 @@ export default function Todo() {
           {/*============================= Start ============================*/}
           <div className=" w-full ">
           <Tabs defaultValue={todoList} onValueChange={(value:string) => {setTodoList(value); setDivVisible(false)}} className="w-full text-white py-1 px-1 ">
-          <div className="flex justify-between flex-shrink">
+          <div className="flex justify-between mx-1 flex-shrink">
               <div className="">
                 <TabsList className="bg-slate-900 text-white " >
                   <TabsTrigger value="pending" className="bg-slate-900 text-slate-400">Pending</TabsTrigger>
                   <TabsTrigger value="completed" className="bg-slate-900 text-slate-400">Completed</TabsTrigger>
                 </TabsList>
               </div>
-              <div className="">
+              <div className="mx-1">
                 <Button variant={"secondary"} onClick={() => setmainSave(true)} className=" my-1 bg-green-700 hover:bg-green-700 text-black hover:text-white"> Add Task</Button>
               </div>
           </div>

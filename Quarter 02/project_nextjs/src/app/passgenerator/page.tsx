@@ -39,7 +39,7 @@ const handleCopyClick = async () => {
 
   return (
     <div className="  flex justify-center">
-      <div className="bg-white p-0.5 my-1 md:my-4 rounded-md w-11/12 sm:w-6/12 ">
+      <div className="bg-white p-0.5 my-1 md:my-4 rounded-md w-11/12 sm:w-5/12 ">
         <div className="flex justify-center bg-slate-900 py-1 rounded-md flex-shrink">
           <h1 className="text-yellow-400 text-3xl sm:text-4xl">Password Generator</h1>
           {/* text-4xl */}

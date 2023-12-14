@@ -86,6 +86,7 @@ export default function Timer() {
 
                 <Button
                   variant="secondary"
+                  className={`bg-${color}-500`}
                   onClick={() => (reset(), setbuttonState("Start"),setColor("green"))}
                 >
                   Reset

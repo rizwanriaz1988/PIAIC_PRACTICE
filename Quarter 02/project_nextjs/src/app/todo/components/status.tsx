@@ -45,7 +45,7 @@ const TodoList = (props: todolist_type) => {
   );
 
   const fetchData = async () => {
-    const api_url = "https://deploy-json-server-on-vercel-1g9qdu10w-rizwan-riazs-projects.vercel.app/todos";
+    const api_url = "https://json-server-l2cp.onrender.com/todos";
     try {
       const response = await fetch(api_url); // Fetch data from the API route
       data = await response.json();
@@ -71,7 +71,7 @@ const TodoList = (props: todolist_type) => {
 
     setTodos(updatedTodos);
     try {
-      const api_url = `https://deploy-json-server-on-vercel-1g9qdu10w-rizwan-riazs-projects.vercel.app/todos/${todoId}`;
+      const api_url = `https://json-server-l2cp.onrender.com/todos/${todoId}`;
       await fetch(api_url, {
         method: "PATCH", // or 'PUT'
         headers: {
@@ -88,7 +88,7 @@ const TodoList = (props: todolist_type) => {
     const updatedTodos = todos.filter((todo) => todo.id !== todoId);
     setTodos(updatedTodos);
     try {
-      const api_url = `https://deploy-json-server-on-vercel-1g9qdu10w-rizwan-riazs-projects.vercel.app/todos/${todoId}`;
+      const api_url = `https://json-server-l2cp.onrender.com/todos/${todoId}`;
       await fetch(api_url, {
         method: "DELETE", // or 'PUT'
         headers: {
@@ -103,7 +103,7 @@ const TodoList = (props: todolist_type) => {
     let forEditing: any;
 
     try {
-      const api_url = `https://deploy-json-server-on-vercel-1g9qdu10w-rizwan-riazs-projects.vercel.app/todos/${todoId}`;
+      const api_url = `https://json-server-l2cp.onrender.com/todos/${todoId}`;
       const response = await fetch(api_url);
       forEditing = await response.json();
     } catch (error) {

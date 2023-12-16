@@ -49,6 +49,7 @@ const TodoList = (props: todolist_type) => {
     try {
       const response = await fetch(api_url); // Fetch data from the API route
       data = await response.json();
+      console.log(data)
       setTodos(data);
     } catch (error) {
       console.error("Error fetching todos:", error);

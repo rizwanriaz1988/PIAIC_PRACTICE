@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import TodoList from "./components/status";
 import { useState } from "react";
 import Newtask from "./components/newtask";
+import loading from "../loading";
 // import editTask from "./components/editTask";
 
 

@@ -10,8 +10,15 @@ import {
   MenubarSeparator,
   MenubarShortcut,
   MenubarTrigger,
-} from "@/components/ui/menubar"
-
+} from "@/components/ui/menubar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,48 +37,62 @@ export default function RootLayout({
       <head>
         <title>My Projects</title>
       </head>
-      <body className={inter.className} style={{backgroundColor: "black"}}>
+      <body className={inter.className} style={{ backgroundColor: "black" }}>
         <div>
-          <div className="flex-grow py-4 items-center bg-slate-900 my-0.5 justify-start ">
+          <div className="flex-grow py-4 items-center bg-slate-900 my-0.5 justify-start text-white">
             <Link
               href="/"
               className="px-5 py-2.5 hover:text-green-500 text-white"
             >
               Home
             </Link>
-            
-            <Link
-              href="/counter"
-              className="px-5 py-2.5 hover:text-green-500 text-white"
-            >
-              Counter
-            </Link>
-            <Link
-              href="/bgchanger"
-              className="px-5 py-2.5 hover:text-green-500 text-white"
-            >
-              Background Changer
-            </Link>
-            <Link
-              href="/timer"
-              className="px-5 py-2.5 hover:text-green-500 text-white"
-            >
-              Timer
-            </Link>
-            <Link
-              href="/passgenerator"
-              className="px-5 py-2.5 hover:text-green-500 text-white"
-            >
-              Password Generator
-            </Link>
-            <Link
-              href="/todo"
-              className="px-5 py-2.5 hover:text-green-500 text-white"
-            >
-              To Do List
-            </Link>
+
+            <DropdownMenu >
+              <DropdownMenuTrigger className="px-5 py-2.5 hover:text-green-500 text-white border-none">My Projects</DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-slate-900 ">
+                <DropdownMenuItem className="focus:bg-transparent">
+                  <Link
+                    href="/todo"
+                    className="px-5 py-2.5 hover:text-green-500 text-white "
+                  >
+                    Todo App
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="focus:bg-transparent">
+                  <Link
+                    href="/counter"
+                    className="px-5 py-2.5 hover:text-green-500 text-white"
+                  >
+                    Counter
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="focus:bg-transparent">
+                  <Link
+                    href="/timer"
+                    className="px-5 py-2.5 hover:text-green-500 text-white"
+                  >
+                    Timer
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="focus:bg-transparent">
+                  <Link
+                    href="/bgchanger"
+                    className="px-5 py-2.5 hover:text-green-500 text-white"
+                  >
+                    Background Changer
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="focus:bg-transparent">
+                  <Link
+                    href="/passgenerator"
+                    className="px-5 py-2.5 hover:text-green-500 text-white"
+                  >
+                    Password Generator
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
-          
         </div>
         {children}
       </body>

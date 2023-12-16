@@ -35,7 +35,7 @@ export default function Newtask(props?: any) {
     if (taskTitle) {
       if (props.btnState) {
         try {
-          const api_url = `http://localhost:3001/todos/${props.editData.id}`;
+          const api_url = `https://json-server-l2cp.onrender.com/todos/${props.editData.id}`;
           await fetch(api_url, {
             method: "PATCH", // or 'PUT'
             headers: {
@@ -57,7 +57,7 @@ export default function Newtask(props?: any) {
         }
       } else {
         try {
-          const api_url = `http://localhost:3001/todos/`;
+          const api_url = `https://json-server-l2cp.onrender.com/todos/`;
           await fetch(api_url, {
             method: "POST", // or 'PUT'
             headers: {

@@ -52,7 +52,7 @@ const TodoList = (props: todolist_type) => {
       console.log(data)
       setTodos(data);
     } catch (error) {
-      console.error("Error fetching todos:", error);
+      console.error("Error fetching todos 1:", error);
     }
   };
 
@@ -81,7 +81,7 @@ const TodoList = (props: todolist_type) => {
         body: JSON.stringify({ status: markAsComplete }),
       });
     } catch (error) {
-      console.error("Error updating todo status:", error);
+      console.error("Error updating todo status 1:", error);
     }
   };
   //delete task
@@ -97,7 +97,7 @@ const TodoList = (props: todolist_type) => {
         },
       });
     } catch (error) {
-      console.error("Error updating todo status:", error);
+      console.error("Error updating todo status 2:", error);
     }
   };
   const editTask = async (todoId: number) => {
@@ -108,7 +108,7 @@ const TodoList = (props: todolist_type) => {
       const response = await fetch(api_url);
       forEditing = await response.json();
     } catch (error) {
-      console.error("Error updating todo status:", error);
+      console.error("Error updating todo status 3:", error);
     }
     // return forEditing
     console.log("forEditing:", forEditing);

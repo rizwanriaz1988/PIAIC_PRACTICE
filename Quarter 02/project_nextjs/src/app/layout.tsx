@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+
 import {
   Menubar,
   MenubarContent,
@@ -39,7 +40,7 @@ export default function RootLayout({
       </head>
       <body className={inter.className} style={{ backgroundColor: "black" }}>
         <div>
-          <div className="flex-grow py-4 items-center bg-slate-900 my-0.5 justify-start text-white">
+          <div className="flex-grow py-2 items-center bg-slate-900 my-0.5 justify-start text-white">
             <Link
               href="/"
               className="px-5 py-2.5 hover:text-green-500 text-white"
@@ -48,7 +49,9 @@ export default function RootLayout({
             </Link>
 
             <DropdownMenu >
-              <DropdownMenuTrigger className="px-5 py-2.5 hover:text-green-500 text-white border-none">My Projects</DropdownMenuTrigger>
+              <DropdownMenuTrigger className="px-5 py-2.5 hover:text-green-500 text-white border-none">My Projects
+              <span></span>
+                </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-slate-900 ">
                 <DropdownMenuItem className="focus:bg-transparent">
                   <Link

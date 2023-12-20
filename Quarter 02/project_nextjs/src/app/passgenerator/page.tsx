@@ -40,11 +40,11 @@ const handleCopyClick = async () => {
   return (
     <div className="  flex justify-center">
       <div className="bg-white p-0.5 my-1 md:my-4 rounded-md w-11/12 sm:w-5/12 ">
-        <div className="flex justify-center bg-slate-900 py-1 rounded-md flex-shrink">
-          <h1 className="text-yellow-400 text-3xl sm:text-4xl">Password Generator</h1>
+        <div className="flex justify-center bg-slate-900 py-1 rounded-md ">
+          <h1 className="text-yellow-400 text-4xl">Password Generator</h1>
           {/* text-4xl */}
         </div>
-        <div className="items-center flex flex-col  bg-slate-900 my-0.5 rounded-md ">
+        <div className="items-center flex flex-col  bg-black my-0.5 rounded-md ">
           {/*====================== Main Div for working ====================*/}
           {/*============================= Start ============================*/}
 

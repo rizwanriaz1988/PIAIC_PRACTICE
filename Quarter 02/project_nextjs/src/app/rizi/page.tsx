@@ -1,6 +1,6 @@
 import React from "react";
 
-function Low() {
+function Lo() {
   return (
     <div className="  flex justify-center">
       <div className="bg-white p-0.5 my-1 md:my-4 rounded-md w-11/12 sm:w-5/12 ">
@@ -39,4 +39,4 @@ function Low() {
   );
 }
 
-export default Low;
+export default Lo;

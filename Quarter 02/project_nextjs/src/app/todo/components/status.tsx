@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { MdDoneOutline } from "react-icons/md"
 import { FiEdit } from "react-icons/fi";
@@ -161,7 +161,11 @@ const TodoList = (props: todolist_type) => {
           todos.map(
             (todo) =>
               !todo.status && (
+                
                 <div key={todo.id} className="py-2">
+                  <Suspense>
+                                      
+                  </Suspense>
                   {/* ======================================show of edit inline */}
                   {btnState && btnId === todo.id && formVisible ? (
                     <Newtask

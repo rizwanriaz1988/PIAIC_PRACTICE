@@ -42,10 +42,10 @@ export default function Timer() {
         <div className="my-0.5 ">
           {/* ========================tabs======================== */}
           {/* <Tabs defaultValue="account" className="flex-grow justify-around  px-2 py-2 bg-slate-900 items-center"> */}
-          <Tabs defaultValue="account" className="flex-grow justify-around  px-2 py-2 bg-slate-900 items-center rounded-md">
-            <TabsList>
-              <TabsTrigger value="account">Version 01</TabsTrigger>
-              <TabsTrigger value="password">Version 02</TabsTrigger>
+          <Tabs defaultValue="account" className="flex-grow justify-around  px-2 py-2 bg-black items-center rounded-md">
+            <TabsList className="bg-slate-900 text-white ">
+              <TabsTrigger value="account" className="bg-slate-900 text-slate-400">Version 01</TabsTrigger>
+              <TabsTrigger value="password" className="bg-slate-900 text-slate-400">Version 02</TabsTrigger>
             </TabsList>
             <TabsContent value="account" className="flex flex-col">
               <div className="text-white flex items-center justify-center mx-auto flex-col my-8">
@@ -86,8 +86,8 @@ export default function Timer() {
 
                 <Button
                   variant="secondary"
-                  className={`bg-${color}-500`}
-                  onClick={() => (reset(), setbuttonState("Start"),setColor("green"))}
+                  className={``}
+                  onClick={() => (reset(), setbuttonState("Start"))}
                 >
                   Reset
                 </Button>

@@ -24,7 +24,7 @@ export default function Counter() {
         <div className="flex justify-center bg-slate-900 py-1 rounded-md ">
           <h1 className="text-yellow-400 text-4xl">COUNTER</h1>
         </div>
-        <div className="bg-slate-900 my-0.5 rounded-md">
+        <div className="bg-black my-0.5 rounded-md">
         <div className="flex justify-center py-5">
           {/* <h1>Counter Value</h1> */}
           <h1 className="text-6xl text-amber-400">{counterState}</h1>

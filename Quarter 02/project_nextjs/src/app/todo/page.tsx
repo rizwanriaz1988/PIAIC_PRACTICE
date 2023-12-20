@@ -29,7 +29,7 @@ export default function Todo() {
     <div className="  flex justify-center">
       <div className="bg-white p-0.5 my-1 md:my-4 rounded-md w-11/12 sm:w-5/12 ">
         <div className="flex justify-center bg-slate-900 py-1 rounded-md ">
-          <h1 className="text-yellow-400 text-4xl">To Do List</h1>
+          <h1 className="text-yellow-400 text-4xl">Todo App</h1>
         </div>
         <div className="flex justify-center flex-col items-center bg-black my-0.5 rounded-md ">
           {/*====================== Main Div for working ====================*/}

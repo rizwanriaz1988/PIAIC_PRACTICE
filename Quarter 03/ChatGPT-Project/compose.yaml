@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  gpt-api:
+    container_name: gpt-api
+    hostname: gpt-api
+    build:
+      context: ./chatgpt-api/
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./chatgpt-api:/code

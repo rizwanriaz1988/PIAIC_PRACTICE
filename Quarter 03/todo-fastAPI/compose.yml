@@ -1,0 +1,38 @@
+version: 'versions: [ "3.8" ]'
+services:
+  fastapi-app:
+    image: fastapi-image
+    build: 
+      context: ./fastapi-microservices
+      dockerfile: Dockerfile.dev
+    ports:
+     - "8000:8000"
+    volumes:
+      - ./fastapi-microservices:/code
+    container_name: fastapi-container
+    networks:
+      - lahore-network
+    depends_on:
+      - postgres_db
+
+
+  postgres_db:
+    image: postgres:latest
+    container_name: postgres_container
+    restart: always
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=todos_db_owner
+      - POSTGRES_PASSWORD=AlZth0jOgR5Y
+      - POSTGRES_DB=todos_db
+    networks:
+      - lahore-network
+
+networks:
+  lahore-network:
+volumes:
+  postgres-data:
+    driver: local

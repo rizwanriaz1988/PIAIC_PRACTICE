@@ -1,0 +1,361 @@
+{
+  "name": "RiziTech: AEO Assistant",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "triggerOn": "specificFolder",
+        "folderToWatch": {
+          "__rl": true,
+          "value": "=https://drive.google.com/drive/folders/1A-g6wWJ8YOSrka16WR8q1lpnhbOLW95g?usp=drive_link",
+          "mode": "url"
+        },
+        "event": "fileCreated",
+        "options": {
+          "fileType": "all"
+        }
+      },
+      "id": "fc1c1cbc-d018-4b92-a252-d0edcb92c70d",
+      "name": "Google Drive Trigger",
+      "type": "n8n-nodes-base.googleDriveTrigger",
+      "typeVersion": 1,
+      "position": [
+        -180,
+        -180
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "AbOjX24G3zbw7oo5",
+          "name": "Google Drive account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1IxXYORjJSJJVGbGIW4SKsNbO7d3LQa2SYWuUMCGGw98",
+          "mode": "list",
+          "cachedResultName": "Official Corrospondance Summary",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1IxXYORjJSJJVGbGIW4SKsNbO7d3LQa2SYWuUMCGGw98/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1IxXYORjJSJJVGbGIW4SKsNbO7d3LQa2SYWuUMCGGw98/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Letter No": "={{ $json.message.content.parseJson().NumberOfLetter }}",
+            "Letter Date": "={{ $json.message.content.parseJson().DateOfLetter }}",
+            "Written To": "={{ $json.message.content.parseJson().LetterWrittenTo }}",
+            "Written From": "={{ $json.message.content.parseJson().LetterWrittenFrom }}",
+            "Letter Title": "={{ $json.message.content.parseJson().TitleOfLetter }}",
+            "Content of Letter": "={{ $json.message.content.parseJson().ContentOfLetter }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Letter No",
+              "displayName": "Letter No",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Letter Date",
+              "displayName": "Letter Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Written To",
+              "displayName": "Written To",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Written From",
+              "displayName": "Written From",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Letter Title",
+              "displayName": "Letter Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Content of Letter",
+              "displayName": "Content of Letter",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2ecd1e71-9047-4969-9ab0-c59eac424f14",
+      "name": "Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1500,
+        100
+      ],
+      "retryOnFail": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "UwhXmnas3VreWScC",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {
+          "binaryPropertyName": "data"
+        }
+      },
+      "id": "7e1b0b84-2aa6-4f68-acbd-2e8f5c8829fd",
+      "name": "Google Drive",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -40,
+        -180
+      ],
+      "alwaysOutputData": false,
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "AbOjX24G3zbw7oo5",
+          "name": "Google Drive account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyB69yaU7HZ1FyXq8Wwav-wipDOzetaA-U4",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"requests\": [\n    {\n      \"image\": {\n        \"content\": \"{{ $json.base64Attachment }}\"\n      },\n      \"features\": [\n        {\n          \"type\": \"TEXT_DETECTION\"\n        }\n      ]\n    }\n  ]\n} ",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "65db2cd8-295e-4dc4-84ca-e67820cca77f",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        280,
+        -180
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// const item = items[0];\n// console.log(item)\nconst attachmentKey = 'data';\n\nif (!item.binary || !item.binary[attachmentKey]) {\n  throw new Error(`Załącznik z kluczem \"${attachmentKey}\" nie istnieje w elemencie.`);\n}\n\nconst attachment = item.binary[attachmentKey];\nconst base64Attachment = Buffer.from(attachment.data, 'base64').toString('base64');\n\nreturn {\n  json: {\n    base64Attachment\n  },\n  \n};\n"
+      },
+      "id": "4654e314-5d5d-4a51-9246-4ca0a24d5c51",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        120,
+        -180
+      ],
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "options": {}
+      },
+      "id": "a9b27bcd-27d1-4115-8b49-0d8b0f82b88d",
+      "name": "OpenAI",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.4,
+      "position": [
+        880,
+        -220
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "0hP8eHOHvKUPYCME",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "assistant",
+        "operation": "create",
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-3.5-turbo",
+          "mode": "list",
+          "cachedResultName": "GPT-3.5-TURBO"
+        },
+        "name": "AEO Asst",
+        "instructions": "extract text ",
+        "knowledgeRetrieval": true,
+        "options": {}
+      },
+      "id": "ffa3a393-709d-4aa4-9368-920a989c33a3",
+      "name": "OpenAI1",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.4,
+      "position": [
+        1080,
+        -240
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "0hP8eHOHvKUPYCME",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-3.5-turbo",
+          "mode": "list",
+          "cachedResultName": "GPT-3.5-TURBO"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "={{ $json.responses[0].textAnnotations[0].description }}\nExtract the following information from the uploaded file:\n\nLetter written to:\nDate of Letter:\nTitle of the letter:\nNumber of the Letter:\nLetter written from:\nContent of the letter in a simple sentence:\nIf any of the above information is not provided explicitly, extract it yourself based on the context. Provide the output in the following JSON format without any additional comments:\n\njson\nCopy code\n{\n  \"LetterWrittenTo\": \"<Extracted or inferred value>\",\n  \"DateOfLetter\": \"<Extracted or inferred value>\",\n  \"TitleOfLetter\": \"<Extracted or inferred value>\",\n  \"NumberOfLetter\": \"<Extracted or inferred value>\",\n  \"LetterWrittenFrom\": \"<Extracted or inferred value>\",\n  \"ContentOfLetter\": \"<Extracted or inferred content>\"\n}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5e5930b5-061a-4d2b-93d3-98858032e089",
+      "name": "OpenAI3",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.4,
+      "position": [
+        960,
+        100
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "0hP8eHOHvKUPYCME",
+          "name": "OpenAi account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Drive Trigger": {
+      "main": [
+        [
+          {
+            "node": "Google Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "OpenAI3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI3": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "3cf5af42-5a5a-429a-9642-4c8fb486c6f5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "27168cb083be46c46bdf96d8b1fce08e36f421c60177d6bea3dcf73ac1e41484"
+  },
+  "id": "UO1VFZoe6c6Hs68F",
+  "tags": []
+}

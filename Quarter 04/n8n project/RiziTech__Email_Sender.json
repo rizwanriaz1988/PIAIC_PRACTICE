@@ -1,0 +1,68 @@
+{
+  "name": "RiziTech: Email Sender",
+  "nodes": [
+    {
+      "parameters": {
+        "sendTo": "={{ $json.body.email }}",
+        "subject": "={{ $json.body.title }}",
+        "message": "={{ $json.body.message }}",
+        "options": {}
+      },
+      "id": "8142177f-fa1e-4279-a28f-891f8e91ffc1",
+      "name": "Gmail",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        700,
+        180
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jFfVQoaaJB7PN6R8",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "receive-prompt",
+        "options": {}
+      },
+      "id": "0cb665e2-afb7-4060-bcf9-9c7678b9edb4",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        300,
+        180
+      ],
+      "webhookId": "5a0ab382-f150-4749-9a26-3745b6eda41b"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "4e189178-bb62-4a93-aab7-706cd1b2a653",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "27168cb083be46c46bdf96d8b1fce08e36f421c60177d6bea3dcf73ac1e41484"
+  },
+  "id": "YR2CkDmdfRtCfrlc",
+  "tags": []
+}

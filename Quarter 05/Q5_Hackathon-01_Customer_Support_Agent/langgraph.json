@@ -1,0 +1,12 @@
+{
+  "dockerfile_lines": [],
+  "graphs": {
+    "ecommerce_customer_support_agent": "./customer_support_agent.py:graph",
+    "dynamic_breakpoints": "./dynamic_breakpoints.py:graph"
+  },
+  "env": "E:\\FREELANCING\\PIAIC\\PIAIC_PRACTICE\\Quarter 05\\Q5_Hackathon-01_Customer_Support_Agent\\.env",
+  "python_version": "3.11",
+  "dependencies": [
+    "."
+  ]
+}

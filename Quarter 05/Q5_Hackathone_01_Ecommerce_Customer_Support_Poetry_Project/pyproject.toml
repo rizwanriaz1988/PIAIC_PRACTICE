@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "chatbot"
+version = "0.1.0"
+description = ""
+authors = ["Rizwan Riaz <139876959+rizwanriaz1988@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.115.6"
+uvicorn = "^0.34.0"
+langgraph = "^0.2.59"
+requests = "^2.32.3"
+psycopg2-binary = "^2.9.10"
+python-dotenv = "^1.0.1"
+langchain = "^0.3.12"
+google-generativeai = "^0.8.3"
+langchain-google-genai = "^2.0.7"
+langchain-core = "^0.3.25"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

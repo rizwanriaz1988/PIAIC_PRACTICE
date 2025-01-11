@@ -1,0 +1,14 @@
+{
+  "dockerfile_lines": [],
+  "graphs": {
+    "simple_graph": "./simple.py:graph",
+    "router": "./router.py:graph",
+    "agent": "./agent.py:graph",
+    "test_agent": "./test_agent.py:graph"
+  },
+  "env": "E:\\FREELANCING\\PIAIC\\PIAIC_PRACTICE\\Quarter 05\\studio\\.env",
+  "python_version": "3.11",
+  "dependencies": [
+    "."
+  ]
+}

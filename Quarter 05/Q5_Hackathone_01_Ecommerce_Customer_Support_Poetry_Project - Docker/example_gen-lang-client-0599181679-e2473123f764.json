@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "gen-l..........................",
+  "private_key_id": "e247312..........................",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEv...............\n",
+  "client_email": "chatbot-hack.........................",
+  "client_id": "100341318151886786134",
+  "auth_uri": "https://a...................h",
+  "token_uri": "https://oauth2.go...............n",
+  "auth_provider_x509_cert_url": "https://www.googlea..........................",
+  "client_x509_cert_url": "https://www.googleapis.com.....................t",
+  "universe_domain": "googleapis.com"
+}
